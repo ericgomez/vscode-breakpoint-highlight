@@ -1,0 +1,51 @@
+{
+  "name": "breakpoint-highlight",
+  "displayName": "Breakpoint Highlight",
+  "description": "Breakpoint Highlight is a Visual Studio Code extension that adds clear red highlighting to lines where breakpoints are set. This makes it easier to identify the lines of code where execution will pause during debugging.",
+  "version": "0.0.1",
+  "publisher": "ericgomez",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericgomez/vscode-breakpoint-highlight"
+  },
+  "bugs": {
+    "url": "https://github.com/ericgomez/vscode-breakpoint-highlight/issues"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {},
+  "keywords": [
+    "debugging",
+    "breakpoint",
+    "highlight"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}
