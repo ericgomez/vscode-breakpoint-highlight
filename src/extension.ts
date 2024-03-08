@@ -1,10 +1,14 @@
 import * as vscode from 'vscode';
 
-const breakpointDecorationType = vscode.window.createTextEditorDecorationType({
-    isWholeLine: true,
-    backgroundColor: '#40252B',
-});
+function createBreakpointDecoration(): vscode.TextEditorDecorationType {
+    const backgroundColor = vscode.workspace.getConfiguration().get<string>('breakpointHighlight.backgroundColor', '#40252BAA');
+    return vscode.window.createTextEditorDecorationType({
+        isWholeLine: true,
+        backgroundColor: backgroundColor
+    });
+}
 
+let breakpointDecoration = createBreakpointDecoration();
 let decorations: vscode.DecorationOptions[] = [];
 
 function updateDecorations() {
@@ -24,26 +28,19 @@ function updateDecorations() {
         }
     });
 
-    editor.setDecorations(breakpointDecorationType, decorations);
-}
-
-function updateDecorationsDebug() {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
-
-    if (!vscode.debug.activeDebugSession) {
-        editor.setDecorations(breakpointDecorationType, decorations);
-    } else {
-        editor.setDecorations(breakpointDecorationType, []);
-    }
+    editor.setDecorations(breakpointDecoration, decorations);
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    vscode.workspace.onDidChangeConfiguration(event => {
+        if (event.affectsConfiguration('breakpointHighlight.backgroundColor')) {
+            breakpointDecoration.dispose();
+            breakpointDecoration = createBreakpointDecoration();
+            updateDecorations();
+        }
+    });
     vscode.window.onDidChangeActiveTextEditor(updateDecorations);
     vscode.debug.onDidChangeBreakpoints(updateDecorations);
-    vscode.debug.onDidStartDebugSession(updateDecorationsDebug);
-    vscode.debug.onDidTerminateDebugSession(() => setTimeout(updateDecorationsDebug, 0));
-
     updateDecorations();
 }
 
