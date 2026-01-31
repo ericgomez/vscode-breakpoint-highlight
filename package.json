@@ -2,7 +2,7 @@
   "name": "breakpoint-highlight",
   "displayName": "Breakpoint Highlight",
   "description": "Breakpoint Highlight is a Visual Studio Code extension that adds clear red highlighting to lines where breakpoints are set. This makes it easier to identify the lines of code where execution will pause during debugging.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "ericgomez",
   "icon": "images/icon.png",
   "repository": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/ericgomez/vscode-breakpoint-highlight/issues"
   },
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Other"
@@ -28,7 +28,9 @@
       "properties": {
         "breakpointHighlight.backgroundColor": {
           "type": "string",
-          "default": "#40252BAA",
+          "format": "color-hex",
+          "default": "#7A354166",
+          "pattern": "^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$",
           "description": "Defines the background color for breakpoint highlights."
         }
       }
